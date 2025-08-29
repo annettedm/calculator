@@ -1,6 +1,6 @@
 Here are some use cases (expectations about your project):
 
-    functions for the following items and testing them in your browser’s console:
+    Added functions for the following items:
         add
         subtract
         multiply
@@ -27,7 +27,7 @@ Here are some use cases (expectations about your project):
         You should already have the code that can populate the display, so once operate has been called, update the display with the result of the operation.
 
         This is the hardest part of the project. You need to figure out how to store all the values and call the operate function with them. Don’t feel bad if it takes you a while to figure out the logic.
-        
+
     Gotchas: watch out for and fix these bugs if they show up in your code:
         Your calculator should not evaluate more than a single pair of numbers at a time. For example, this is how your calculator should function:
             Enter a number (12).
