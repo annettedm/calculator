@@ -15,10 +15,10 @@ function divide(a, b) {
 }
 
 
-module.exports = {
-  add,
-  subtract,
-  multiply,
-  divide
-}
-//export { add, subtract, multiply, divide };
+// module.exports = {
+//   add,
+//   subtract,
+//   multiply,
+//   divide
+// }
+export { add, subtract, multiply, divide };
