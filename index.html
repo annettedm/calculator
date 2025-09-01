@@ -3,11 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script type="module" src="script.js" defer></script>
   <title>Calculator</title>
 </head>
 <body>
-  <h1>Calculator</h1>
+  <h1>Online calculator</h1>
+
+  <!--     Create a basic HTML calculator with buttons for each digit and operator (including =).
+        Don’t worry about making them functional just yet.
+        There should also be a display for the calculator. Go ahead and fill it with some dummy numbers so it looks correct.
+        Add a “clear” button. -->
+
+
+  <div class="container">
+    <div id="input">
+      <input type="text">
+    </div>
+    <div class="btns">
+      <button class="non-digit">C</button>
+      <button class="non-digit" id="delete">Del</button>
+      <button  class="non-digit">+</button>
+
+      <button class="digit">7</button>
+      <button class="digit">8</button>
+      <button class="digit">9</button>
+      <button class="non-digit">-</button>
+      <button class="digit">4</button>
+      <button class="digit">5</button>
+      <button class="digit">6</button>
+      <button class="non-digit">*</button>
+      <button class="digit">1</button>
+      <button class="digit">2</button>
+      <button class="digit">3</button>
+      <button class="non-digit">/</button>
+      <button class="digit">0</button>
+      <button class="digit">.</button>
+
+      <button id="equal">=</button>
+    </div>
+  </div>
 </body>
 </html>
