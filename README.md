@@ -1,16 +1,22 @@
 Here are some use cases (expectations about your project):
 
     Added functions for the following items:
-        add
-        subtract
-        multiply
-        divide
+    - add
+    - subtract
+    - multiply
+    - divide
 
 
-    Create a basic HTML calculator with buttons for each digit and operator (including =).
-        Don’t worry about making them functional just yet.
-        There should also be a display for the calculator. Go ahead and fill it with some dummy numbers so it looks correct.
-        Add a “clear” button.
+    Created a basic HTML calculator with buttons for each digit and operator:
+    - numbers
+    - dot
+    - clear
+    - delete
+    - +, -, *, /, =
+
+    Created the functions to
+    - match btn click and value
+       
 
     Create the functions that populate the display when you click the digit buttons. You should store the content of the display (the number) in a variable for use in the next step.
 

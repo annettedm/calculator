@@ -9,7 +9,7 @@
 }
 
 body {
-  background-color: aliceblue;
+  background-color: #f9f8fc;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -60,7 +60,7 @@ input:focus {
 .btns {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  gap: 14px;
 }
 
 .btns button {
@@ -69,28 +69,58 @@ input:focus {
   font-size: 35px;
   border: none;
   border-radius: 5px;
-
+  cursor: pointer;
+  border: 2px solid white;
+  -webkit-transition-duration: 0.8s; /* Safari */
+  transition-duration: 0.8s;
 }
 
 .digit {
   background-color: #dcd0ff;
 }
 
+.digit:hover {
+  background-color: #cabcf5;
+}
+
+
 .non-digit {
   background-color: #615d6c;
   color: white;
 }
 
-#equal {
-  /* grid-row: 4 / span 3;
-  grid-column: 4; */
-  /* align-self: start; */
+.non-digit:hover {
+  background-color: #50466b;
+}
+
+.equal {
   grid-area: 5 / 3 / span 1 / span 2;
   background-color: #df7373;
   color: white;
+}
 
+.equal:hover {
+  background-color: #e45555;
 }
 
 #delete {
   grid-area: 1 / 2 / span 1 / span 2;
+}
+
+.digit.active {
+  background-color: #b3a7da;
+  border-color: rgba(179, 167, 218, 0.2);
+  transition: all 0.5s;
+}
+
+.non-digit.active {
+  background-color: #3f3755;
+  border-color:rgba(63, 55, 85, 0.2) ;
+  transition: all 0.5s;
+}
+
+.equal.active {
+  background-color: #c94a4a;
+  border-color: rgba(201, 74, 74, 0.2);
+  transition: all 0.5s;
 }
