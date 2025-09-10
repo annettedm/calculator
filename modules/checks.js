@@ -18,7 +18,7 @@ export function isNumberOrOperatorOrDot(val) {
 }
 
 export function isOperator(val) {
-  if (operators.includes(val)) return true;
+  return operators.includes(val)
 }
 
 export function isEqual(val) {
@@ -30,18 +30,17 @@ export function isNumberOrDot(val) {
 }
 
 export function hasInvalidExtraDot(arr) {
-  console.log(`inside hasInvalidExtraDot arr: ${arr}`)
-  let filtered = arr.filter((element) => element === ".");
-  console.log(`inside hasInvalidExtraDot filtered: ${filtered}`)
-  
+  let filtered = arr.filter((element) => element === ".");  
 
   return (filtered.length >= 2 || filtered === undefined);
 }
 
 export function isValidOperator(operator) {
-
   return (operator.length == 1 || (operator.length == 2 && includesAllowedOperators(operator)));
+}
 
+export function isArrayEmptyOrUndefined(arr) {
+  return (arr.length === 0 || arr === undefined);
 }
 
 function includesAllowedOperators(operator) {

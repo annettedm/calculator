@@ -47,3 +47,17 @@ Extra credit
     Users can get floating point numbers if they do the math required to get one, but they can’t type them in yet. Add a . button and let users input decimals! Make sure you don’t let them type more than one though, like: 12.3.56.5. Disable the . button if there’s already a decimal separator in the display.
     Add a “backspace” button, so the user can undo their last input if they click the wrong number.
     Add keyboard support!
+
+
+Keys
+
+Key Name	event.which	event.key	event.code	Notes 
+delete	46	
+enter	13
+
+forward slash	191	/	Slash
+
+[48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105] -> numbers
+[106, 107, 109, 111, 189, 191, ] -> * + - /
+[110, 190] -> . 
+[187] -> =

@@ -1,30 +1,33 @@
-import * as basic from "./modules/basic_functions.js";
+import * as basic from "./modules/basicFunctions.js";
 import * as checks from "./modules/checks.js";
 import * as showDisplay from "./modules/showAtDisplay.js";
+import * as parse from "./modules/parseValues.js";
+import * as manageCalc from "./modules/manageCalculations.js";
 
-const display = document.querySelector("#display");
-const btnsContainer = document.querySelector("#btns")
+export const display = document.querySelector("#display");
+export const btnsContainer = document.querySelector("#btns")
 
 btnsContainer.addEventListener("click", getClickedBtn);
+display.addEventListener("keypress", (event) => {
+  event.preventDefault();
+  getClickedBtn(event);
+});
 
 function getClickedBtn(event) {
+  if (display.value === "Error") display.value = "";
+  //debugger;  
   let value = event.target.id;
+  console.log(`target id ${value} ${event.key}`);
+
+  if (value === display.id && checks.isNumberOrOperatorOrDot(event.key)) {
+    console.log(`key ${event.key}`);
+    value = event.key;
+  }
 
   if (checks.isEqual(value)) {
-    let displayValue = display.value;
+    let calculationResult = manageCalc.manageCalculations(display.value);
 
-    let parsedValues;
-    parsedValues = basic.parseDisplayValue(displayValue);
-
-    parsedValues = basic.prepareForCount(parsedValues);
-    let result = basic.count(parsedValues.left, parsedValues.operator, parsedValues.right)
-    console.log(`inside getClickedBtn result: ${result}`);
-
-    if (result === undefined) {
-      display.value = "Error";
-    } else {
-      display.value = result;
-    }
+    showDisplay.showCalcAtDisplay(calculationResult);
   }
 
   if ((display.value === "" && checks.isAllowedFirstValue(value)) || (display.value !== "" && checks.isNumberOrOperatorOrDot(value)))  {
@@ -39,6 +42,11 @@ btnsContainer.addEventListener("mousedown", (event) => {
 btnsContainer.addEventListener("mouseup", (event) => {
   event.target.classList.remove("active");
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  display.value = "";
+})
+
 
 
 // module.exports = {
