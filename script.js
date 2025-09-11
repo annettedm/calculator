@@ -57,7 +57,9 @@ document.addEventListener("DOMContentLoaded", () => {
 // }
 
 /*
-  Create the functions that populate the display when you click the digit buttons. You should store the content of the display (the number) in a variable for use in the next step.
+ 1. need an operatorCounter to check if an operator for the first time or not
+ 2. counter should be available at count fn
+ 3. need get count and set count fn 
 
     Make the calculator work! You’ll need to store the first and second numbers input by the user and then operate() on them when the user presses the = button, according to the operator that was selected between the numbers.
 

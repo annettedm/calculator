@@ -16,15 +16,8 @@ Here are some use cases (expectations about your project):
 
     Created the functions to
     - match btn click and value
+    - allow entering only digits and operators
        
-
-    Create the functions that populate the display when you click the digit buttons. You should store the content of the display (the number) in a variable for use in the next step.
-
-    Make the calculator work! You’ll need to store the first and second numbers input by the user and then operate() on them when the user presses the = button, according to the operator that was selected between the numbers.
-
-        You should already have the code that can populate the display, so once operate has been called, update the display with the result of the operation.
-
-        This is the hardest part of the project. You need to figure out how to store all the values and call the operate function with them. Don’t feel bad if it takes you a while to figure out the logic.
 
     Gotchas: watch out for and fix these bugs if they show up in your code:
         Your calculator should not evaluate more than a single pair of numbers at a time. For example, this is how your calculator should function:
