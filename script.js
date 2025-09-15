@@ -27,7 +27,7 @@ function getClickedBtn(event, isButton = false) {
   let value = event.target.id;
 
   if (!isButton && check.isNumberOrOperatorOrDot(event.key)) {
-    console.log(`key ${event.key}`);
+    // console.log(`key ${event.key}`);
     value = event.key;
   }
 
@@ -37,8 +37,8 @@ function getClickedBtn(event, isButton = false) {
   }
 
   if (check.isOperator(value)) {
-    console.log(`inside isOperator value: ${value}, display value: ${display.value}`);
-    countProcess.manageOperator(value, display.value);
+    console.log(`inside script on check if is operator value: ${value}, display value: ${display.value}`);
+    countProcess.manageOperator(display.value, value);
   }
 
   if ((display.value === "" && checks.isAllowedFirstValue(value)) || (display.value !== "" && checks.isNumberOrOperatorOrDot(value)))  {

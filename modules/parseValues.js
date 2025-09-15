@@ -61,7 +61,7 @@ export function prepareValuesForCount(values) {
   left = left.join("");
   right = right.join("");
 
-  console.log(`left ${left} oper ${operator} right ${right}`)
+  // console.log(`left ${left} oper ${operator} right ${right}`)
   
   return { left, right, operator };
 }
@@ -76,9 +76,9 @@ function prepareOperator(operatorValue) {
 
   if (operator.length == 2) {
     operator = defineOperator(operator);
-    console.log(`prepare operator from define ${operator}`)
+    // console.log(`prepare operator from define ${operator}`)
   }
-  console.log(`prepare operator return ${operator}`)
+  // console.log(`prepare operator return ${operator}`)
 
   return operator
 }

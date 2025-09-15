@@ -5,8 +5,6 @@ export default class Count {
 
   constructor() {
     this.resetValues();
-    // this.parse = new Parse();
-    console.log(`inside Count class ${this.accumulator}`);
 
   }
 
@@ -21,7 +19,7 @@ export default class Count {
     
     this.accumulator = basic.count(preparedForCalcValues.left, preparedForCalcValues.operator, preparedForCalcValues.right);
     this.counter++;
-    console.log(`inside manageCalc result: ${this.accumulator}`);
+    // console.log(`inside manageCalc result: ${this.accumulator}`);
   
     return this.accumulator;
   }
@@ -39,7 +37,7 @@ export default class Count {
     this.counter = 0; 
   }
 
-  manageOperator(operator, displayValue) {
-
+  manageOperator(displayValue, operator) {
+    console.log(`manageOperator ${displayValue}`);
   }
 }

@@ -3,35 +3,45 @@ export default class Parse {
     let left = [];
     let operator = [];
     let right = [];
+    let extraOperator;
     let cur;
   
     let rawArray = displayValue.split('');
   
     for (let i = 0; i < rawArray.length; i++) {
       cur = rawArray[i];
+      // left for the first value including "-"
       if (i === 0 && checks.isAllowedFirstValue(cur)) {
-        left.push(rawArray[i]);
+        left.push(cur);
         continue;
       } 
-  
+      
+      // left not the first
       if (right.length === 0 && operator.length == 0 && checks.isNumberOrDot(cur)) {
-        left.push(rawArray[i]);
+        left.push(cur);
         continue;
       }
   
-      if (left.length !== 0 && checks.isOperator(cur)) {
-        operator.push(rawArray[i]);
+      // operator
+      if (left.length !== 0 && checks.isOperator(cur) && right.length === 0) {
+        operator.push(cur);
         continue;
       }
-  
+      
+      // right
       if (operator.length !== 0 && checks.isNumberOrDot(cur)) {
-        right.push(rawArray[i]);
+        right.push(cur);
         continue;
+      }
+
+      // extra operator -> when -+/* after right to trigger calculation
+      if (operator.length !== 0 && right.length !== 0 && checks.isOperator(cur)) {
+        extraOperator.push(cur)
       }
     }
   
     // console.log(`inside parseDisplayValue: left ${left} right: ${right} operator: ${operator}`);
-    return { left, right, operator };
+    return { left, right, operator, extraOperator };
   }
   
   prepareValuesForCount(values) {

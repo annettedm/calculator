@@ -35,7 +35,7 @@ export function count(left, operator, right) {
     case "**": result = power(left, right);
       break;
   }
-  console.log(`from operate() result is ${result}`);
+  // console.log(`from operate() result is ${result}`);
   return result;
 }
 
