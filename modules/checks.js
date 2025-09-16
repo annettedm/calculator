@@ -5,16 +5,20 @@ const operators = ["+", "-", "*", "/"];
 const otherOperators = ["clear", ".", "delete", "="];
 
 
-export function isAllowedValue(val) {
-  return (isNumberOrDot(val)|| operators.includes(val) || otherOperators.includes(val));
-}
+// export function isAllowedValue(val) {
+//   return (isNumberOrDot(val)|| operators.includes(val) || otherOperators.includes(val));
+// }
 
 export function isAllowedFirstValue(val) {
   return isNumberOrDot(val) || val === "-";
 }
 
 export function isNumberOrOperatorOrDot(val) {
-  return isNumberOrDot(val) || operators.includes(val);
+  return isNumberOrDot(val) || isAnyOperator(val);
+}
+
+export function isNumberOrOperatorOrDotForDisplay(val) {
+  return isNumberOrDot(val) || isOperator(val);
 }
 
 export function isOperator(val) {
@@ -23,6 +27,14 @@ export function isOperator(val) {
 
 export function isEqual(val) {
   return val === "=";
+}
+
+export function isEnter(val) {
+  return val === 'Enter';
+}
+
+export function isAnyOperator(val) {
+  return isOperator(val) || isEnter(val) || isEqual(val);
 }
 
 export function isNumberOrDot(val) {
@@ -40,7 +52,7 @@ export function isValidOperator(operator) {
 }
 
 export function isArrayEmptyOrUndefined(arr) {
-  return (arr.length === 0 || arr === undefined);
+  return (arr === undefined || arr.length === 0);
 }
 
 function includesAllowedOperators(operator) {

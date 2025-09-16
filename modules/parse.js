@@ -1,122 +1,111 @@
-export default class Parse {
-  parseDisplayValue(displayValue) {
-    let left = [];
-    let operator = [];
-    let right = [];
-    let extraOperator;
-    let cur;
-  
-    let rawArray = displayValue.split('');
-  
-    for (let i = 0; i < rawArray.length; i++) {
-      cur = rawArray[i];
-      // left for the first value including "-"
-      if (i === 0 && checks.isAllowedFirstValue(cur)) {
-        left.push(cur);
-        continue;
-      } 
-      
-      // left not the first
-      if (right.length === 0 && operator.length == 0 && checks.isNumberOrDot(cur)) {
-        left.push(cur);
-        continue;
-      }
-  
-      // operator
-      if (left.length !== 0 && checks.isOperator(cur) && right.length === 0) {
-        operator.push(cur);
-        continue;
-      }
-      
-      // right
-      if (operator.length !== 0 && checks.isNumberOrDot(cur)) {
-        right.push(cur);
-        continue;
-      }
+import * as checks from './checks.js';
 
-      // extra operator -> when -+/* after right to trigger calculation
-      if (operator.length !== 0 && right.length !== 0 && checks.isOperator(cur)) {
-        extraOperator.push(cur)
-      }
-    }
-  
-    // console.log(`inside parseDisplayValue: left ${left} right: ${right} operator: ${operator}`);
-    return { left, right, operator, extraOperator };
-  }
-  
-  prepareValuesForCount(values) {
-    // console.log(`left ${values.left} oper ${values.operator} right ${values.right}`)
-  
-    if (checks.isArrayEmptyOrUndefined(values.left) || checks.isArrayEmptyOrUndefined(values.right)) return undefined;
-  
-    let left = values.left;
-    let right = values.right;
-    let operator = prepareOperator(values.operator);
-      console.log(`left ${left} oper ${operator} right ${right}`)
-  
+export function parseDisplayValue(displayValue) {
+  let left = [];
+  let operator = [];
+  let right = [];
+  let extraOperator = [];
+  let cur;
+
+  let rawArray = displayValue.split('');
+
+  for (let i = 0; i < rawArray.length; i++) {
+    cur = rawArray[i];
+    // left for the first value including "-"
+    if (i === 0 && checks.isAllowedFirstValue(cur)) {
+      left.push(cur);
+      continue;
+    } 
     
-    if (checks.hasInvalidExtraDot(left) || checks.hasInvalidExtraDot(right) || !operator) return undefined;
+    // left not the first
+    if (right.length === 0 && operator.length == 0 && checks.isNumberOrDot(cur)) {
+      left.push(cur);
+      continue;
+    }
+
+    // operator
+    if (left.length !== 0 && checks.isOperator(cur) && right.length === 0) {
+      operator.push(cur);
+      continue;
+    }
     
-    if (operator === "*-") {
-      operator = "*";
-      right.unshift("-");
-      console.log(`left ${left} oper ${operator} right ${right}`)
-  
-    } else if (operator === "--") {
-      operator = "-";
-      right.unshift("-");
+    // right
+    if (operator.length !== 0 && checks.isNumberOrDot(cur)) {
+      right.push(cur);
+      continue;
     }
-  
-    left = left.join("");
-    right = right.join("");
-  
-    console.log(`left ${left} oper ${operator} right ${right}`)
+
+    // extra operator -> when -+/* after right to trigger calculation
+    if (operator.length !== 0 && right.length !== 0 && checks.isOperator(cur)) {
+      extraOperator.push(cur);
+      continue;
+    }
+  }
+  return { left, right, operator, extraOperator };
+}
+
+export function prepareValuesForCount(values) {
+  let left = prepareNumeric(values.left);
+  let right = prepareNumeric(values.right);
+  let operator = prepareOperator(values.operator);
+  let extraOperator = prepareOperator(values.extraOperator);
     
-    return { left, right, operator };
+  if (operator === "*-") {
+    operator = "*";
+    right.unshift("-");
+
+  } else if (operator === "--" && right) {
+    operator = "-";
+    right = `-${right}`
+  }  
+
+  return { left, right, operator, extraOperator };
+}
+
+function prepareOperator(operatorValue) {
+  if (checks.isArrayEmptyOrUndefined(operatorValue)) return undefined;
+
+  let operator = operatorValue.join("");
+
+  if (!operator || !checks.isValidOperator(operator)) return undefined;
+
+  if (operator.length == 2) {
+    operator = defineOperator(operator);
   }
-  
-  prepareOperator(operatorValue) {
-    // console.log(`prepare operator before ${operatorValue}`)
-    let operator = operatorValue.join("");
-  
-    // console.log(`prepare operator after ${operator}`)
-  
-    if (!operator || !checks.isValidOperator(operator)) return undefined;
-  
-    if (operator.length == 2) {
-      operator = defineOperator(operator);
-      console.log(`prepare operator from define ${operator}`)
-    }
-    console.log(`prepare operator return ${operator}`)
-  
-    return operator;
+
+  return operator;
+}
+
+function defineOperator(operator) {
+  let operatorResult;
+
+  switch (operator) {
+    case "++": operatorResult = "+";
+      break;
+    case "+-": operatorResult = "-";
+      break;
+    case "--": operatorResult = "--"
+      break;
+    case "-+": operatorResult = "-";
+      break;
+    case "**": operatorResult = "**";
+      break;
+    case "*+": operatorResult = "*";
+      break;
+    case "*-": operatorResult = "*-";
+      break;
+    case "/+": operatorResult = "/";
+      break;
+    case "/-": operatorResult = "/";
+      break;
   }
-  
-  defineOperator(operator) {
-    let operatorResult;
-  
-    switch (operator) {
-      case "++": operatorResult = "+";
-        break;
-      case "+-": operatorResult = "-";
-        break;
-      case "--": operatorResult = "--"
-        break;
-      case "-+": operatorResult = "-";
-        break;
-      case "**": operatorResult = "**";
-        break;
-      case "*+": operatorResult = "*";
-        break;
-      case "*-": operatorResult = "*-";
-        break;
-      case "/+": operatorResult = "/";
-        break;
-      case "/-": operatorResult = "/";
-        break;
-    }
-    // console.log(`define operator return ${operatorResult}`)
-    return operatorResult;
-  }
-  
+  return operatorResult;
+}
+
+function prepareNumeric(numeric) {
+  if (checks.isArrayEmptyOrUndefined(numeric)) return undefined;
+
+  if (checks.hasInvalidExtraDot(numeric)) return undefined;
+
+  return numeric.join('');
 }

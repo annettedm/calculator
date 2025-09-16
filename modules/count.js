@@ -1,14 +1,7 @@
-import * as parse from './parseValues.js';
+import * as parse from './parseValues2.js';
 import * as basic from "./basicFunctions.js"
 
-export default class Count {
-
-  constructor() {
-    this.resetValues();
-
-  }
-
-  manageCalculations(displayValue) {
+export function manageCalculations(displayValue) {
     let parsedValues = parse.parseDisplayValue(displayValue);
   
     // console.log(parsedValues)
@@ -24,20 +17,15 @@ export default class Count {
     return this.accumulator;
   }
 
-  processEqualOrEnter(displayValue) {
+  export function processEqualOrEnter(displayValue) {
     if (Number.isFinite(Number(displayValue))) return displayValue;
     else return this.manageCalculations(displayValue);
   }
 
-  resetValues() {
+  export function resetValues() {
     this.accumulator = undefined;
     this.left = undefined;
     this.operator = undefined;
     this.right = undefined;
     this.counter = 0; 
   }
-
-  manageOperator(displayValue, operator) {
-    console.log(`manageOperator ${displayValue}`);
-  }
-}

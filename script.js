@@ -1,14 +1,13 @@
 import * as basic from "./modules/basicFunctions.js";
 import * as checks from "./modules/checks.js";
 import * as showDisplay from "./modules/showAtDisplay.js";
-import * as parse from "./modules/parseValues.js";
-import Count from './modules/count.js';
-import Check from "./modules/check.js";
+import * as parse from "./modules/parseValues2.js";
+import * as count from './modules/count.js';
+import Manage from "./modules/manageValues.js";
 
-export const display = document.querySelector("#display");
-export const btnsContainer = document.querySelector("#btns");
-const countProcess = new Count();
-const check = new Check();
+const display = document.querySelector("#display");
+const btnsContainer = document.querySelector("#btns");
+const manage = new Manage();
 
 btnsContainer.addEventListener("click", (event) => {
   getClickedBtn(event, true);
@@ -21,28 +20,18 @@ document.addEventListener("keypress", (event) => {
 function getClickedBtn(event, isButton = false) {
   if (display.value === "Error") {
     display.value = "";
-    countProcess.resetValues();
   }
  
-  let value = event.target.id;
+  let input = event.target.id;
 
-  if (!isButton && check.isNumberOrOperatorOrDot(event.key)) {
-    // console.log(`key ${event.key}`);
-    value = event.key;
+  if (!isButton && checks.isNumberOrOperatorOrDot(event.key)) {
+    input = event.key;
   }
 
-  if (check.isEqual(value) || check.isEnter(event.key)) {
-    let calculationResult = countProcess.processEqualOrEnter(display.value);
-    showDisplay.showCalcAtDisplay(calculationResult);
-  }
+  let parsedResult = manage.manageValue(display.value, input);
 
-  if (check.isOperator(value)) {
-    console.log(`inside script on check if is operator value: ${value}, display value: ${display.value}`);
-    countProcess.manageOperator(display.value, value);
-  }
-
-  if ((display.value === "" && checks.isAllowedFirstValue(value)) || (display.value !== "" && checks.isNumberOrOperatorOrDot(value)))  {
-    showDisplay.showValueAtDisplay(value);
+  if ((display.value === "" && checks.isAllowedFirstValue(input)) || (display.value !== "" && checks.isNumberOrOperatorOrDotForDisplay(input)) || Number.isFinite(parsedResult)) {
+    display.value = showDisplay.showAtDisplay(parsedResult);
   }
 }
 
