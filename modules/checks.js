@@ -2,15 +2,8 @@ const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 
 const operators = ["+", "-", "*", "/"];
 
-const otherOperators = ["clear", ".", "delete", "="];
-
-
-// export function isAllowedValue(val) {
-//   return (isNumberOrDot(val)|| operators.includes(val) || otherOperators.includes(val));
-// }
-
 export function isAllowedFirstValue(val) {
-  return isNumberOrDot(val) || val === "-";
+  return isNumberOrDot(val) || val === "-" || Number.isFinite(Number(val));
 }
 
 export function isNumberOrOperatorOrDot(val) {
@@ -42,6 +35,8 @@ export function isNumberOrDot(val) {
 }
 
 export function hasInvalidExtraDot(arr) {
+  if (typeof arr === "string") arr = arr.split('')
+
   let filtered = arr.filter((element) => element === ".");  
 
   return (filtered.length >= 2 || filtered === undefined);
@@ -53,6 +48,11 @@ export function isValidOperator(operator) {
 
 export function isArrayEmptyOrUndefined(arr) {
   return (arr === undefined || arr.length === 0);
+}
+
+export function isForbiddenOperatorsAtStart(value) {
+  const unsuitableSignCombinationsAtStart = ['--', '-+', '-/', '-*', '.-', '.+', '.-', './', '.*', '..']
+  return unsuitableSignCombinationsAtStart.includes(value)
 }
 
 function includesAllowedOperators(operator) {

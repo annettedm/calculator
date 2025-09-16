@@ -41,6 +41,7 @@ export function parseDisplayValue(displayValue) {
       continue;
     }
   }
+  console.log(`parse: left ${left} operator ${operator} right ${right} extra ${extraOperator}`)
   return { left, right, operator, extraOperator };
 }
 
@@ -58,6 +59,7 @@ export function prepareValuesForCount(values) {
     operator = "-";
     right = `-${right}`
   }  
+  console.log(`prepare for count: left ${left} operator ${operator} right ${right} extra ${extraOperator}`)
 
   return { left, right, operator, extraOperator };
 }
@@ -103,9 +105,13 @@ function defineOperator(operator) {
 }
 
 function prepareNumeric(numeric) {
-  if (checks.isArrayEmptyOrUndefined(numeric)) return undefined;
+  if (checks.isArrayEmptyOrUndefined(numeric)) {
+    return undefined;
+  } 
 
-  if (checks.hasInvalidExtraDot(numeric)) return undefined;
+  if (checks.hasInvalidExtraDot(numeric)) {
+    return undefined;
+  } 
 
   return numeric.join('');
 }

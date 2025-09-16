@@ -1,19 +1,17 @@
-import * as checks from "./checks.js";
-
 function add(a, b) {
-  return Number(a) + Number(b);
+  return Number(a) + Number(b)
 }
 
 function subtract(a, b) {
-  return a - b;
+  return a - b
 }
 
 function multiply(a, b) {
-  return a * b;
+  return a * b
 }
 
 function divide(a, b) {
-  return a / b;
+  return a / b
 }
 
 function power(a, b) {
@@ -35,7 +33,6 @@ export function count(left, operator, right) {
     case "**": result = power(left, right);
       break;
   }
-  // console.log(`from operate() result is ${result}`);
   return result;
 }
 
