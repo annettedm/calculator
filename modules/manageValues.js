@@ -2,8 +2,7 @@ import * as checks from "./checks.js";
 import * as parse from './parse.js';
 import * as count from './basicFunctions.js';
 
-export default class Manage {
-  manageValue(display, input) {
+export function manageValue(display, input) {
     let valueToProcess = display + input;
 
     if (checks.isAllowedFirstValue(valueToProcess)) return { result: valueToProcess };
@@ -43,5 +42,8 @@ export default class Manage {
     } else {
       return { result: valueToProcess };  
     }
-  }
+}
+  
+export function removeLastValue(display) {
+  return display.slice(0, -1)
 }

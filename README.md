@@ -18,7 +18,3 @@ Here are some use cases (expectations about your project):
     - match btn click and value
     - allow entering only digits and operators
        
-
-        Pressing “clear” should wipe out any existing data. Make sure the user is really starting fresh after pressing “clear”.
-
-    Add a “backspace” button, so the user can undo their last input if they click the wrong number.
