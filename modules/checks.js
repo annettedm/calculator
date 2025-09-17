@@ -2,6 +2,9 @@ const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 
 const operators = ["+", "-", "*", "/"];
 
+const printableChars = numbers.concat(operators)
+printableChars.push('.')
+
 export function isAllowedFirstValue(val) {
   return isNumberOrDot(val) || val === "-" || Number.isFinite(Number(val));
 }
@@ -60,3 +63,11 @@ function includesAllowedOperators(operator) {
 
   return validOperators.includes(operator);
 }
+
+export function isAllowedToDisplay(value) {
+  if (value) { } {
+    let allowed = Array.from(value).every((char) => printableChars.includes(char))
+    return allowed
+  }
+}
+

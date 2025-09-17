@@ -6,9 +6,7 @@ export default class Manage {
   manageValue(display, input) {
     let valueToProcess = display + input;
 
-    console.log(`dot`)
-
-    if (checks.isAllowedFirstValue(valueToProcess)) return valueToProcess;
+    if (checks.isAllowedFirstValue(valueToProcess)) return { result: valueToProcess };
 
     if (checks.isForbiddenOperatorsAtStart(valueToProcess)) return undefined
 
@@ -28,19 +26,22 @@ export default class Manage {
 
       if (left && operator && right && !extraOperator) {
         // console.log(` count result ${count.count(left, operator, right)}`)
-        return count.count(left, operator, right);
+        let result = count.count(left, operator, right) 
+        let calculated = true
+        return {result, calculated}
       }
 
       if (left && operator && right && extraOperator) {
         let result = count.count(left, operator, right);
-        return `${result}${extraOperator}`
+        result = `${result}${extraOperator}`
+        return {result} 
       }
 
-      if (left && operator && !right) return valueToProcess;
+      if (left && operator && !right) return { result: valueToProcess };
 
-      if (left && !operator && !right) return left
+      if (left && !operator && !right) return { result: left }
     } else {
-      return valueToProcess;  
+      return { result: valueToProcess };  
     }
   }
 }

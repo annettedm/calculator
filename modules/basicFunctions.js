@@ -1,3 +1,4 @@
+
 function add(a, b) {
   return Number(a) + Number(b)
 }
@@ -33,10 +34,13 @@ export function count(left, operator, right) {
     case "**": result = power(left, right);
       break;
   }
-  return result;
+  return cutDecimals(result);
 }
 
 
+  function cutDecimals(number){
+    return number.toLocaleString('fullwide', {maximumFractionDigits:6})
+  }
 
 
 // module.exports = {

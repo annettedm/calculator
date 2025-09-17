@@ -41,7 +41,6 @@ export function parseDisplayValue(displayValue) {
       continue;
     }
   }
-  console.log(`parse: left ${left} operator ${operator} right ${right} extra ${extraOperator}`)
   return { left, right, operator, extraOperator };
 }
 
