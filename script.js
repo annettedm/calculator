@@ -63,16 +63,17 @@ function processClickedBtn(event, isButton = false) {
   }
   
   parsedResult = manageValues.manageValue(display.value, input);
-  console.log(`script parsed result ${parsedResult.result ? parsedResult.result : "undefined"}`)
+  console.log(`parsed result ${parsedResult.result}`)
   
   if (parsedResult) {
+    console.log(`script parsed result ${parsedResult.result ? parsedResult.result : "undefined"}`)
     toDisplay = showDisplay.showAtDisplay(parsedResult.result) 
     calculated = parsedResult.calculated ? parsedResult.calculated : false
   }
   console.log(`to display ${toDisplay}`)
-  console.log(`in refactor`)
 
   if (toDisplay) display.value = toDisplay
+  console.log(`-------------`)
 }
 
 function manageLastValueRemoval() {

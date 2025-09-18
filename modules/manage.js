@@ -4,23 +4,36 @@ import * as count from './calculate.js'
 
 export function manageValue(display, input) {
   let valueToProcess = display + input
+  let left
+  let right
+  let operator
+  let extraOperator
+  let parsedArrayedValues
+  let preparedForCalcValues
 
-  if (check.isAllowedFirstValue(valueToProcess)) return { result: valueToProcess }
+  console.log(`in manage value ${valueToProcess}`)
 
-  if (check.isForbiddenOperatorsAtStart(valueToProcess)) return {result: "Error"}
+  if (check.isAllowedFirstValue(valueToProcess)) {
+    return { result: valueToProcess }
+  }
+  
+  if (check.isForbiddenOperatorsAtStart(valueToProcess)) {
+    return {result: "Error"}
+  } 
 
   if (check.isAnyOperator(input)) {
-    let left
-    let right
-    let operator
-    let extraOperator
+    console.log(`in manage isAnyOperator value ${valueToProcess}`)
 
-    let parsedArrayedValues = parse.parseDisplayValue(valueToProcess)
+    parsedArrayedValues = parse.parseDisplayValue(valueToProcess)
+    left = parsedArrayedValues.left
+    operator = parsedArrayedValues.operator
+    right = parsedArrayedValues.right
+    extraOperator = parsedArrayedValues.extraOperator
 
-    if (parsedArrayedValues.left.length !== 0 && parsedArrayedValues.operator.length !== 0
-      && parsedArrayedValues.right.length !== 0) {
-        
-      let preparedForCalcValues = parse.prepareValuesForCount(parsedArrayedValues)
+    if (check.isToReturnDisplayValue(left, operator, right)) return { result: valueToProcess }
+
+    if (check.isArrayNonEmpty(left) && check.isArrayNonEmpty(operator) && check.isArrayNonEmpty(right)) {
+      preparedForCalcValues = parse.prepareValuesForCount(parsedArrayedValues)
 
       left = preparedForCalcValues.left
       operator = preparedForCalcValues.operator
@@ -39,23 +52,23 @@ export function manageValue(display, input) {
         
         return { result, calculated }
       }
+
       if (left && operator && right && extraOperator) {
         let result = count.calculate(left, operator, right)
         result = `${result}${extraOperator}`
         return { result }
       }
-
+      
       if (left && operator && !right) return { result: valueToProcess }
 
       if (left && !operator && !right) return { result: left }
-    } else {
-      return { result: valueToProcess }
     }
-  } else {
-    return { result: valueToProcess }
   }
+
+  if (check.isNumberOrDot(input)) return {result: valueToProcess}
 }
   
 export function removeLastValue(value) {
   return value.slice(0, -1)
 }
+

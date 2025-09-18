@@ -49,6 +49,10 @@ export function isArrayEmptyOrUndefined(arr) {
   return (arr === undefined || arr.length === 0)
 }
 
+export function isArrayNonEmpty(arr) {
+  return arr.length > 0
+}
+
 export function isForbiddenOperatorsAtStart(value) {
   const unsuitableSignCombinationsAtStart = ['--', '-+', '-/', '-*', '.-', '.+', '.-', './', '.*', '..']
   return unsuitableSignCombinationsAtStart.includes(value)
@@ -63,6 +67,12 @@ export function isAllowedToDisplay(value) {
 
 export function isDisplayToClear(display, calculated = false) {
   return (display === "Error" || display === 'Bad operation' || (calculated && Number.isFinite(Number(display))))
+}
+
+export function isToReturnDisplayValue(left, operator, right) {
+  return (isArrayNonEmpty(left) && isArrayEmptyOrUndefined(operator)
+    && isArrayEmptyOrUndefined(right)) || (isArrayNonEmpty(left) && isArrayNonEmpty(operator)
+    && isArrayEmptyOrUndefined(right))
 }
 
 function includesAllowedOperators(operator) {
