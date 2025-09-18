@@ -71,7 +71,7 @@ function processClickedBtn(event, isButton = false) {
   }
   console.log(`to display ${toDisplay}`)
 
-  if (toDisplay) display.value = toDisplay
+  if (toDisplay || toDisplay === 0) display.value = toDisplay
   console.log(`-------------`)
 }
 

@@ -61,10 +61,14 @@ export function prepareValuesForCalculate(values) {
   } else if (operator === "/-" && right) {
     operator = "/"
     right = `-${right}`
+  }  else if (operator === "**-" && right) {
+    operator = "**"
+    right = `-${right}`
+    console.log(`prepared operator ${operator} right ${right}`)
   }   
 
 
-  console.log(`parse: left ${left} operator ${operator} right ${right} extra ${extraOperator}`)
+  console.log(`prepared: left ${left} operator ${operator} right ${right} extra ${extraOperator}`)
   return { left, right, operator, extraOperator }
 }
 
@@ -73,9 +77,10 @@ function prepareOperator(operatorValue) {
 
   let operator = operatorValue.join("")
 
-  if (!operator || !check.isValidOperator(operator)) return undefined
+  operator = removeExtraOperators(operator)
+  console.log(`operator ${operator}`)
 
-  if (operator.length == 2) {
+  if (operator.length == 2 || operator === '**-') {
     operator = defineOperator(operator)
   }
 
@@ -94,6 +99,14 @@ function prepareNumeric(numeric) {
   return numeric.join('')
 }
 
+function removeExtraOperators(operator) {
+  if (operator === '**-') return operator
+  console.log(operator)
+  if (operator.length > 2) {
+    return operator.slice(0, 2)
+  } else return operator
+}
+
 function defineOperator(operator) {
   let operatorResult
 
@@ -102,9 +115,17 @@ function defineOperator(operator) {
       break
     case "+-": operatorResult = "-"
       break
+    case "+/": operatorResult = "/"
+      break
+    case "+*": operatorResult = "*"
+      break
     case "--": operatorResult = "--"
       break
     case "-+": operatorResult = "-"
+      break
+    case "-/": operatorResult = "/"
+      break
+    case "-*": operatorResult = "*"
       break
     case "**": operatorResult = "**"
       break
@@ -112,9 +133,17 @@ function defineOperator(operator) {
       break
     case "*-": operatorResult = "*-"
       break
+    case "*/": operatorResult = "/"
+      break
     case "/+": operatorResult = "/"
       break
     case "/-": operatorResult = "/-"
+      break
+    case "/*": operatorResult = "*"
+      break
+    case "//": operatorResult = "/"
+      break
+    case "**-": operatorResult = "**-"
       break
   }
   return operatorResult

@@ -2,8 +2,12 @@ const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
 
 const operators = ["+", "-", "*", "/"]
 
+const nonPrintableOperators = ['=', 'Enter']
+
 const printableChars = numbers.concat(operators)
 printableChars.push('.')
+
+const allowedToPasteChars = printableChars.concat(nonPrintableOperators)
 
 export function isAllowedFirstValue(val) {
   return isNumberOrDot(val) || val === "-" || Number.isFinite(Number(val))
@@ -42,7 +46,7 @@ export function hasInvalidExtraDot(arr) {
 }
 
 export function isValidOperator(operator) {
-  return (operator.length == 1 || (operator.length == 2 && includesAllowedOperators(operator)))
+  return (operator.length == 1 || (operator.length == 2 && includesAllowedOperators(operator)) || operator === '**-')
 }
 
 export function isArrayEmptyOrUndefined(arr) {
@@ -59,10 +63,12 @@ export function isForbiddenOperatorsAtStart(value) {
 }
 
 export function isAllowedToDisplay(value) {
-  if (value) { } {
+  console.log(`inside is allowed`)
+  if (value) {
     let allowed = Array.from(value).every((char) => printableChars.includes(char))
-    return allowed
+    return true
   }
+  return true
 }
 
 export function isDisplayToClearOnFocus(display, calculated = false) {
@@ -74,9 +80,20 @@ export function isDisplayToClear(display, input, calculated = false) {
 }
 
 export function isToReturnDisplayValue(left, operator, right) {
-  return (isArrayNonEmpty(left) && isArrayEmptyOrUndefined(operator)
-    && isArrayEmptyOrUndefined(right)) || (isArrayNonEmpty(left) && isArrayNonEmpty(operator)
-    && isArrayEmptyOrUndefined(right))
+  return (isNonEmptyString(left) && !isNonEmptyString(operator)
+    && !isNonEmptyString(right)) || (isNonEmptyString(left) && isNonEmptyString(operator)
+    && !isNonEmptyString(right))
+}
+
+export function isNonEmptyString(value) {
+  return (value && value.length !== 0)
+}
+
+export function isAllowedToPaste(value) {
+  if (value) {
+    let allowed = Array.from(value).every((char) => allowedToPasteChars.includes(char))
+    return allowed
+  }
 }
 
 function includesAllowedOperators(operator) {
