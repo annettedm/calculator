@@ -62,15 +62,6 @@ export function isForbiddenOperatorsAtStart(value) {
   return unsuitableSignCombinationsAtStart.includes(value)
 }
 
-export function isAllowedToDisplay(value) {
-  console.log(`inside is allowed`)
-  if (value) {
-    let allowed = Array.from(value).every((char) => printableChars.includes(char))
-    return true
-  }
-  return true
-}
-
 export function isDisplayToClearOnFocus(display, calculated = false) {
   return (display === "Error" || display === 'Bad operation' || (calculated && Number.isFinite(Number(display))))
 }

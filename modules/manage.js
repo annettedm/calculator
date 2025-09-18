@@ -41,7 +41,6 @@ export function manageValue(display, input) {
 
         if (left && operator && right && !extraOperator) {
           let result = calculate.calculate(left, operator, right)
-          console.log(result)
           let calculated = true
 
           if (!Number.isFinite(Number(result))) {

@@ -41,7 +41,6 @@ export function parseDisplayValue(displayValue) {
       continue
     }
   }
-  console.log(`parse: left ${left} operator ${operator} right ${right} extra ${extraOperator}`)
   return { left, right, operator, extraOperator }
 }
 
@@ -67,8 +66,6 @@ export function prepareValuesForCalculate(values) {
     console.log(`prepared operator ${operator} right ${right}`)
   }   
 
-
-  console.log(`prepared: left ${left} operator ${operator} right ${right} extra ${extraOperator}`)
   return { left, right, operator, extraOperator }
 }
 
@@ -78,7 +75,6 @@ function prepareOperator(operatorValue) {
   let operator = operatorValue.join("")
 
   operator = removeExtraOperators(operator)
-  console.log(`operator ${operator}`)
 
   if (operator.length == 2 || operator === '**-') {
     operator = defineOperator(operator)
@@ -101,7 +97,7 @@ function prepareNumeric(numeric) {
 
 function removeExtraOperators(operator) {
   if (operator === '**-') return operator
-  console.log(operator)
+  
   if (operator.length > 2) {
     return operator.slice(0, 2)
   } else return operator

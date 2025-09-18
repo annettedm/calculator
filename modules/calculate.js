@@ -35,11 +35,11 @@ export function calculate(left, operator, right) {
     case "**": result = power(left, right)
       break
   }
-  console.log(result)
   return cutDecimals(result)
 }
 
 function cutDecimals(number) {
+  const precisionNumbers = ['5', '6', '7', '8', '9']
   let stringNumber = String(number)
   let arr = stringNumber.split('.')
   let whole = arr[0]
@@ -51,7 +51,6 @@ function cutDecimals(number) {
     let decimal = secondPart.slice(0, 6)
 
     let precision = secondPart.slice(6, 7)
-    const precisionNumbers = ['5', '6', '7', '8', '9']
 
     if (precisionNumbers.includes(precision)) {
       decimal = +decimal
