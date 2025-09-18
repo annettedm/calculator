@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 display.addEventListener('focus', () => {
-  if (checks.isDisplayToClear(display.value, calculated)) {
+  if (checks.isDisplayToClearOnFocus(display.value, calculated)) {
     display.value = "";
   }
 })
@@ -58,12 +58,11 @@ function processClickedBtn(event, isButton = false) {
     input = event.key;
   }
   
-  if (checks.isDisplayToClear(display.value, calculated)) {
+  if (checks.isDisplayToClear(display.value, input, calculated)) {
     display.value = "";
   }
   
   parsedResult = manageValues.manageValue(display.value, input);
-  console.log(`parsed result ${parsedResult.result}`)
   
   if (parsedResult) {
     console.log(`script parsed result ${parsedResult.result ? parsedResult.result : "undefined"}`)

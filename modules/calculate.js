@@ -16,7 +16,6 @@ function divide(a, b) {
 }
 
 function power(a, b) {
-  console.log(`power ${Math.pow(a, b)}`)
   return Math.pow(a, b)
 }
 
@@ -35,10 +34,8 @@ export function calculate(left, operator, right) {
     case "**": result = power(left, right)
       break
   }
-  let res = cutDecimals(result)
-  console.log(`after decimal ${res}`)
 
-  return res
+  return cutDecimals(result)
 }
 
 
@@ -48,8 +45,6 @@ function cutDecimals(number) {
   if (result.includes(',')) {
     result = result.replace(/,/g, '')
   }
-  result = Number(result)
-  console.log(`decimal type ${typeof result} value ${result}`)
   
-  return result
+  return +result
 }

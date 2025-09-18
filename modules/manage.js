@@ -1,6 +1,6 @@
 import * as check from "./check.js"
 import * as parse from './parse.js'
-import * as count from './calculate.js'
+import * as calculate from './calculate.js'
 
 export function manageValue(display, input) {
   let valueToProcess = display + input
@@ -11,8 +11,6 @@ export function manageValue(display, input) {
   let parsedArrayedValues
   let preparedForCalcValues
 
-  console.log(`in manage value ${valueToProcess}`)
-
   if (check.isAllowedFirstValue(valueToProcess)) {
     return { result: valueToProcess }
   }
@@ -22,7 +20,6 @@ export function manageValue(display, input) {
   } 
 
   if (check.isAnyOperator(input)) {
-    console.log(`in manage isAnyOperator value ${valueToProcess}`)
 
     parsedArrayedValues = parse.parseDisplayValue(valueToProcess)
     left = parsedArrayedValues.left
@@ -33,7 +30,7 @@ export function manageValue(display, input) {
     if (check.isToReturnDisplayValue(left, operator, right)) return { result: valueToProcess }
 
     if (check.isArrayNonEmpty(left) && check.isArrayNonEmpty(operator) && check.isArrayNonEmpty(right)) {
-      preparedForCalcValues = parse.prepareValuesForCount(parsedArrayedValues)
+      preparedForCalcValues = parse.prepareValuesForCalculate(parsedArrayedValues)
 
       left = preparedForCalcValues.left
       operator = preparedForCalcValues.operator
@@ -41,12 +38,10 @@ export function manageValue(display, input) {
       extraOperator = preparedForCalcValues.extraOperator
 
       if (left && operator && right && !extraOperator) {
-        let result = count.calculate(left, operator, right)
-        console.log(`before infinity check ${result}`)
+        let result = calculate.calculate(left, operator, right)
         let calculated = true
 
         if (!Number.isFinite(Number(result))) {
-          console.log(`infinity check ${result}`)
           result = 'Infinity'
         }
         
@@ -54,7 +49,7 @@ export function manageValue(display, input) {
       }
 
       if (left && operator && right && extraOperator) {
-        let result = count.calculate(left, operator, right)
+        let result = calculate.calculate(left, operator, right)
         result = `${result}${extraOperator}`
         return { result }
       }

@@ -65,8 +65,12 @@ export function isAllowedToDisplay(value) {
   }
 }
 
-export function isDisplayToClear(display, calculated = false) {
+export function isDisplayToClearOnFocus(display, calculated = false) {
   return (display === "Error" || display === 'Bad operation' || (calculated && Number.isFinite(Number(display))))
+}
+
+export function isDisplayToClear(display, input, calculated = false) {
+  return ((display === "Error" || display === 'Bad operation' || (calculated && Number.isFinite(Number(display)))) && isNumberOrDot(input))
 }
 
 export function isToReturnDisplayValue(left, operator, right) {

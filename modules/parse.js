@@ -45,7 +45,7 @@ export function parseDisplayValue(displayValue) {
   return { left, right, operator, extraOperator }
 }
 
-export function prepareValuesForCount(values) {
+export function prepareValuesForCalculate(values) {
   let left = prepareNumeric(values.left)
   let right = prepareNumeric(values.right)
   let operator = prepareOperator(values.operator)
