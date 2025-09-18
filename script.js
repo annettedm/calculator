@@ -1,6 +1,6 @@
-import * as checks from "./modules/checks.js";
-import * as showDisplay from "./modules/showAtDisplay.js";
-import * as manageValues from "./modules/manageValues.js";
+import * as checks from "./modules/check.js";
+import * as showDisplay from "./modules/show.js";
+import * as manageValues from "./modules/manage.js";
 
 const display = document.querySelector("#display");
 const btnsContainer = document.querySelector("#btns");
@@ -10,12 +10,17 @@ let calculated = false
 
 
 btnsContainer.addEventListener("click", (event) => {
-  getClickedBtn(event, true);
+  processClickedBtn(event, true);
 });
 
 document.addEventListener("keypress", (event) => {
   event.preventDefault();
-  getClickedBtn(event);
+  processClickedBtn(event);
+});
+
+document.addEventListener("keyup", (event) => {
+  event.preventDefault();
+  if (event.key === "Escape") display.value = ""
 });
 
 btnsContainer.addEventListener("mousedown", (event) => {
@@ -30,35 +35,41 @@ document.addEventListener("DOMContentLoaded", () => {
   display.value = "";
 })
 
+display.addEventListener('focus', () => {
+  if (checks.isDisplayToClear(display.value, calculated)) {
+    display.value = "";
+  }
+})
+
 clearBtn.addEventListener('click', () => {
   display.value = ''
 })
 
 deleteBtn.addEventListener('click', manageLastValueRemoval)
 
-function getClickedBtn(event, isButton = false) {
+function processClickedBtn(event, isButton = false) {
   let toDisplay
   let input
   let parsedResult
   
   input = event.target.id;
-
+  
   if (!isButton && checks.isNumberOrOperatorOrDot(event.key)) {
     input = event.key;
   }
-
-  if (display.value === "Error" || display.value === 'Zero division' || (calculated && Number.isFinite(Number(input)))) {
+  
+  if (checks.isDisplayToClear(display.value, calculated)) {
     display.value = "";
   }
   
   parsedResult = manageValues.manageValue(display.value, input);
-
-  if (parsedResult && parsedResult.result) {
-    toDisplay = showDisplay.showAtDisplay(parsedResult.result) 
-  }
+  console.log(`script parsed result ${parsedResult.result ? parsedResult.result : "undefined"}`)
+  
   if (parsedResult) {
+    toDisplay = showDisplay.showAtDisplay(parsedResult.result) 
     calculated = parsedResult.calculated ? parsedResult.calculated : false
   }
+  console.log(`to display ${toDisplay}`)
 
   if (toDisplay) display.value = toDisplay
 }

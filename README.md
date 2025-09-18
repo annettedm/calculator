@@ -18,3 +18,10 @@ Here are some use cases (expectations about your project):
     - match btn click and value
     - allow entering only digits and operators
        
+
+
+to do 
+1. change double quotes to single
+2. remove ;
+3. add readme description
+4. test calculator against odin requirements 
