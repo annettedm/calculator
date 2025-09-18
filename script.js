@@ -70,6 +70,7 @@ function processClickedBtn(event, isButton = false) {
     calculated = parsedResult.calculated ? parsedResult.calculated : false
   }
   console.log(`to display ${toDisplay}`)
+  console.log(`in refactor`)
 
   if (toDisplay) display.value = toDisplay
 }
